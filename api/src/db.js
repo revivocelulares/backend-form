@@ -56,10 +56,12 @@ sequelize.models = Object.fromEntries(capsEntries);
 const {
    postulante,
    congresos_cursos,
-   comprobantepago 
+   comprobantepago,
+   respuesta_pago 
 } = sequelize.models;
 
 //Acá todas las relaciones
+
 
 
 module.exports = {
