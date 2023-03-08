@@ -10,7 +10,6 @@ const server = express();
 server.name = 'BACKEND FORMULARIO SIBEN';
 
 server.use(express.json());
-server.use(express.urlencoded());
 server.use(cookieParser());
 server.use(morgan('dev'));
 server.use(corss());
