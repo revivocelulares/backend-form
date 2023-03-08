@@ -4,14 +4,13 @@ const morgan = require('morgan');
 const corss = require('corss');
 const routes = require('./routes/index.js');
 require('dotenv').config();
-require('./db.js');
 
 const server = express();
 
 server.name = 'BACKEND FORMULARIO SIBEN';
 
 server.use(express.json());
-//server.use(express.urlencoded());
+server.use(express.urlencoded());
 server.use(cookieParser());
 server.use(morgan('dev'));
 server.use(corss());
