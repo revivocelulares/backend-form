@@ -19,6 +19,25 @@ const comprobante = {
         } catch (error) {
             console.log(error);
         }
+    },
+    listarComprobantes: async (req, res) => {
+        try {
+            let { idCongreso, email } = req.body;
+            const query = "CALL sp_listar_comprobantes(?,?)";
+
+            const conn = await dbconn();
+            conn.query(query, [idCongreso, email],
+                (error, results, fields) => {
+                    if(error) {
+                        console.error(error.message);
+                    }
+                    res.status(200).json(results[0]);
+                }
+            );
+            conn.end();
+        } catch (error) {
+            console.log(error);
+        }
     }
 }
 

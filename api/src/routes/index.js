@@ -9,6 +9,6 @@ router.use('/process-payment', payment);
 router.use('/congreso', congreso);
 router.use('/inscripto', inscripto);
 router.use('/comprobante', comprobante);
-router.use('/', resp_pago);
+router.use('/resp_pago', resp_pago);
 
 module.exports = router;
