@@ -1,9 +1,28 @@
 const { dbconn } = require('../db');
+const mysql = require('mysql2/promise');
+const { SIBEN_DB_USER, SIBEN_DB_PASSWORD, SIBEN_DB_HOST, SIBEN_DB_NAME } = process.env;
 
 const inscripto = {
     addNewInscripto: async (req, res) => {
         try {
             let { email, nombre, apellido, pais, profesion, isResident, isMember } = req.body;
+
+            const connect = await mysql.createConnection({
+                host: SIBEN_DB_HOST,
+                user: SIBEN_DB_USER,
+                password: SIBEN_DB_PASSWORD,
+                database: SIBEN_DB_NAME
+            });
+            const [rows, fields] = await connect.execute(`SELECT * FROM users WHERE email=? AND group_id=3 AND active=1`, [email]);
+            const verify_email = rows.length > 0 ? rows[0]?.email : null;
+            let isMember1 = verify_email != null ? 1 : 0;
+
+            if(isMember === isMember1) {
+                isMember = true;
+            } else {
+                isMember = false;
+            }
+
             const query = "CALL sp_crear_inscripto(?,?,?,?,?,?,?)";
 
             const conn = await dbconn();
