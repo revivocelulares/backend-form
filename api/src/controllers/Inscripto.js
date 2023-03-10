@@ -18,9 +18,9 @@ const inscripto = {
             let isMember1 = verify_email != null ? 1 : 0;
 
             if(isMember === isMember1) {
-                isMember = true;
+                isMember = 1;
             } else {
-                isMember = false;
+                isMember = 0;
             }
 
             const query = "CALL sp_crear_inscripto(?,?,?,?,?,?,?)";
