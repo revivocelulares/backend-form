@@ -6,7 +6,7 @@ const inscripto = {
     addNewInscripto: async (req, res) => {
         try {
             let { email, nombre, apellido, pais, profesion, isResident, isMember } = req.body;
-            if(isMember) {
+            if(isMember != 1 || isMember === 1) {
                 const connect = await mysql.createConnection({
                     host: SIBEN_DB_HOST,
                     user: SIBEN_DB_USER,
