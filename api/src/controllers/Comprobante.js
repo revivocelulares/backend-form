@@ -23,7 +23,7 @@ const comprobante = {
     listarComprobantes: async (req, res) => {
         try {
             const idCongreso = req.params['idCongreso'];
-            const query = "CALL sp_listar_comprobantes(?)";
+            const query = "CALL sp_buscar_comprobante(?)";
 
             const conn = await dbconn();
             conn.query(query, [idCongreso],

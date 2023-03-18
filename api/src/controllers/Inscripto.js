@@ -54,6 +54,25 @@ const inscripto = {
         } catch (error) {
             console.log(error);
         }
+    },
+    listarInscriptosPorCongreso: async (req, res) => {
+        try {
+            const idCongreso = req.params['idCongreso'];
+            const query = "CALL sp_buscar_inscriptosPorCongreso(?)";
+
+            const conn = await dbconn();
+            conn.query(query, [idCongreso],
+                (error, results, fields) => {
+                    if(error) {
+                        console.error(error.message);
+                    }
+                    res.status(200).json(results[0]);
+                }
+            );
+            conn.end();
+        } catch (error) {
+            console.log(error);
+        }
     }
 }
 
