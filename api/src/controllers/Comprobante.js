@@ -22,11 +22,11 @@ const comprobante = {
     },
     listarComprobantes: async (req, res) => {
         try {
-            let { idCongreso, email } = req.body;
-            const query = "CALL sp_listar_comprobantes(?,?)";
+            let { idCongreso } = req.body;
+            const query = "CALL sp_listar_comprobantes(?)";
 
             const conn = await dbconn();
-            conn.query(query, [idCongreso, email],
+            conn.query(query, [idCongreso],
                 (error, results, fields) => {
                     if(error) {
                         console.error(error.message);
