@@ -22,7 +22,7 @@ const comprobante = {
     },
     listarComprobantes: async (req, res) => {
         try {
-            let { idCongreso } = req.body;
+            const idCongreso = req.params['idCongreso'];
             const query = "CALL sp_listar_comprobantes(?)";
 
             const conn = await dbconn();
