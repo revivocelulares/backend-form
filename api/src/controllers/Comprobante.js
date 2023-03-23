@@ -1,5 +1,6 @@
 const { dbconn } = require('../db');
 const sendMail = require('./Mailer');
+const { getNombre, getApellido } = require('./Data');
 
 const comprobante = {
     addNewComprobante: async (req, res) => {
@@ -17,8 +18,11 @@ const comprobante = {
                     if(results.affectedRows === 1) {
                         let info = {
                             confimInscription: true,
-                            email: email
+                            email: email,
+                            nombre: await getNombre(email),
+                            apellido: await getApellido(email)
                         }
+                        console.log('INFO ----------- ' + info);
                         await sendMail(info);
                     }
                     res.status(200).json(results.affectedRows);

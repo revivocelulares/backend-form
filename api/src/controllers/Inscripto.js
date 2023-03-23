@@ -73,6 +73,23 @@ const inscripto = {
         } catch (error) {
             console.log(error);
         }
+    },
+    listarInscriptoPorEmail: async (req, res) => {
+        try{
+            const email = req.params['email'];
+            const query = "CALL sp_listar_inscripto_email(?)";
+
+            const conn = await dbconn();
+            conn.query(query, [email], (error, results, fields) => {
+                if(error) {
+                    console.error(error.message);
+                }
+                res.status(200).json(results[0]);
+            });
+            conn.end();
+        } catch (error) {
+            console.log(error);
+        }
     }
 }
 
