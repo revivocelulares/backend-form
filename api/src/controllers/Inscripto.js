@@ -101,12 +101,13 @@ const inscripto = {
             });
 
             const [rows, fields] = await connect.execute(`SELECT * FROM users WHERE group_id=3 AND active=1`);
-            console.log(rows);
             if(rows.length > 0) {
-                const mails = rows;
+                let mails = rows[0].email;
+                res.status(200).json(mails);
+            } else {
+                res.status(404).send({msg: 'No se encontraron emails'});
             }
-            await connect.end();
-            return res.status(200).json(mails);
+            await connect.end();            
             
         } catch (error) {
             console.log(error);
