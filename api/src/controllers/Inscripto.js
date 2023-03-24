@@ -90,6 +90,27 @@ const inscripto = {
         } catch (error) {
             console.log(error);
         }
+    },
+    listarMailsSiben: async (res, req) => {
+        try {
+            const connect = await mysql.createConnection({
+                host: SIBEN_DB_HOST,
+                user: SIBEN_DB_USER,
+                password: SIBEN_DB_PASSWORD,
+                database: SIBEN_DB_NAME
+            });
+
+            const [rows, fields] = await connect.execute(`SELECT * FROM users WHERE group_id=3 AND active=1`);
+            console.log(rows);
+            if(rows.length > 0) {
+                const mails = rows;
+            }
+            await connect.end();
+            return res.status(200).json(mails);
+            
+        } catch (error) {
+            console.log(error);
+        }
     }
 }
 
