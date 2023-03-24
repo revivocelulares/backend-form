@@ -6,7 +6,7 @@ const path = require('path');
 async function mailer(info) {
     try {
         let transporter = nodemailer.createTransport({
-            host: "smtp.example.com",
+            host: "smtp.siben.net",
             port: 465,
             secure: true,
             auth: {
