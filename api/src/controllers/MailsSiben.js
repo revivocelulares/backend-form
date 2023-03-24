@@ -14,7 +14,7 @@ const mails = {
 
             const [rows, fields] = await connect.execute(`SELECT * FROM users WHERE group_id=3 AND active=1`);
             if(rows.length > 0) {
-                res.status(200).json(rows[0]?.email);
+                res.status(200).json(rows.email);
             } else {
                 res.status(404).send({msg: 'No se encontraron emails'});
             }
