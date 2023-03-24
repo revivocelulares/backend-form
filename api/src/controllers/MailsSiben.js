@@ -12,9 +12,10 @@ const mails = {
                 database: SIBEN_DB_NAME
             });
 
-            const [rows, fields] = await connect.execute(`SELECT * FROM users WHERE group_id=3 AND active=1`);
+            const [rows, fields] = await connect.execute(`SELECT email FROM users WHERE group_id=3 AND active=1`);
             if(rows.length > 0) {
-                res.status(200).json(rows?.email);
+                console.log('ROWS -------- ' + rows);
+                res.status(200).json(rows[0]);
             } else {
                 res.status(404).send({msg: 'No se encontraron emails'});
             }
