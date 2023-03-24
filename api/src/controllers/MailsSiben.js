@@ -1,9 +1,10 @@
+const { response } = require('express');
 const mysql = require('mysql2/promise');
 require('dotenv').config();
 const { SIBEN_DB_USER, SIBEN_DB_PASSWORD, SIBEN_DB_HOST, SIBEN_DB_NAME } = process.env;
 
 const mails = {
-    listarMailsSiben: async (res, req) => {
+    listarMailsSiben: async (response, req) => {
         try {
             const connect = await mysql.createConnection({
                 host: SIBEN_DB_HOST,
@@ -14,13 +15,11 @@ const mails = {
 
             const [rows, fields] = await connect.execute(`SELECT * FROM users WHERE group_id=3 AND active=1`);
             if(rows.length > 0) {
-                let mails = rows[0]?.email;
-                res.status(200).json(mails);
+                response.status(200).json(rows[0]?.email);
             } else {
-                res.status(404).send({msg: 'No se encontraron emails'});
+                response.status(404).send({msg: 'No se encontraron emails'});
             }
-            await connect.end();            
-            
+            await connect.end();              
         } catch (error) {
             console.log(error);
         }
