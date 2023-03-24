@@ -1,4 +1,3 @@
-const { response } = require('express');
 const mysql = require('mysql2/promise');
 require('dotenv').config();
 const { SIBEN_DB_USER, SIBEN_DB_PASSWORD, SIBEN_DB_HOST, SIBEN_DB_NAME } = process.env;
