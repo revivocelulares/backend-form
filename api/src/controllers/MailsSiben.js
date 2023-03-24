@@ -13,10 +13,9 @@ const mails = {
             });
 
             const [rows, fields] = await connect.execute(`SELECT email FROM users WHERE group_id=3 AND active=1`);
-            if(rows.length > 0) {
-                for(let i = 0; i < rows.length; i++) {
-                    res.status(200).json(rows[i]);
-                }
+            if(rows) {
+                console.log(JSON.stringify(rows));
+                res.status(200).json(rows);
             } else {
                 res.status(404).send({msg: 'No se encontraron emails'});
             }
