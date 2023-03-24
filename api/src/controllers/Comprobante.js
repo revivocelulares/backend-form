@@ -1,6 +1,6 @@
 const { dbconn } = require('../db');
 const sendMail = require('./Mailer');
-const { getNombre, getApellido } = require('./Data');
+const { getNombre, getApellido, getTitulo, getFechaCongreso, getDescripcion } = require('./Data')
 
 const comprobante = {
     addNewComprobante: async (req, res) => {
@@ -20,9 +20,12 @@ const comprobante = {
                             confimInscription: true,
                             email: email,
                             nombre: await getNombre(email),
-                            apellido: await getApellido(email)
+                            apellido: await getApellido(email),
+                            titulo: await getTitulo(idCongreso),
+                            fecha_congreso: await getFechaCongreso(idCongreso),
+                            descripcion: await getDescripcion(idCongreso)
                         }
-                        console.log('INFO ----------- ' + info);
+                        console.log('INFO --- ' + JSON.stringify(info));
                         await sendMail(info);
                     }
                     res.status(200).json(results.affectedRows);
@@ -52,6 +55,6 @@ const comprobante = {
             console.log(error);
         }
     }
-}
+};
 
 module.exports = comprobante;

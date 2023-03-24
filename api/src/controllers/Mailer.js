@@ -6,10 +6,16 @@ const path = require('path');
 async function mailer(info) {
     try {
         let transporter = nodemailer.createTransport({
-            service: "outlook",
+            host: "smtp.example.com",
+            port: 465,
+            secure: true,
             auth: {
-                user: "congreso_siben@outlook.com",
-                pass: "S1benTest"
+                user: "congresos@siben.net",
+                pass: "Osaka2020"
+            },
+            tls: {
+                
+                rejectUnauthorized: false,
             }
         });
 
@@ -17,6 +23,11 @@ async function mailer(info) {
         let source = '';
         let template = '';
         let user = info.email;
+        let nombre = info.nombre;
+        let apellido = info.apellido;
+        let titulo = info.titulo;
+        let fecha_congreso = info.fecha_congreso;
+        let descripcion = info.descripcion;
         let subject = '';
         let loads = '';
 
@@ -25,12 +36,17 @@ async function mailer(info) {
             source = fs.readFileSync(filePath, 'utf-8').toString();
             template = Handlebars.compile(source);
             user = info.email;
+            nombre = info.nombre;
+            apellido = info.apellido;
+            titulo = info.titulo;
+            fecha_congreso = info.fecha_congreso;
+            descripcion = info.descripcion;
             subject = "Confirmación de Inscripsión";
-            loads = ({info});
+            loads = ({nombre, apellido, titulo, fecha_congreso, descripcion});
         }
 
         let options = await transporter.sendMail({
-            from: 'congreso_siben@outlook.com',
+            from: 'congresos@siben.net',
             to: user,
             subject: subject,
             html: template(loads)
