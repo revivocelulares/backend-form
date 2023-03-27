@@ -19,8 +19,8 @@ async function mailer(info) {
             // }
             service: 'outlook',
             auth: {
-                user: 'die_enr@hotmail.com',
-                pass: 'Diego581466'
+                user: 'rominabocon@hotmail.com',
+                pass: 'Santiagogo11'
             }
         });
 
@@ -51,7 +51,7 @@ async function mailer(info) {
         }
 
         let options = await transporter.sendMail({
-            from: 'die_enr@hotmail.com',
+            from: 'rominabocon@hotmail.com',
             to: user,
             subject: subject,
             html: template(loads)
