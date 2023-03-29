@@ -16,7 +16,7 @@ server.use(cookieParser());
 server.use(fileUpload());
 server.use(morgan('dev'));
 server.use(corss());
-server.use('/api/imagenes', express.static(__dirname + '/imagenes'));
+server.use('/api/imagen', express.static(__dirname + '/imagenes'));
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Credentials', 'true');
