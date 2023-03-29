@@ -25,6 +25,7 @@ async function mailer(info) {
         let titulo = info.titulo;
         let fecha_congreso = info.fecha_congreso;
         let descripcion = info.descripcion;
+        let imagen = info.imagen;
         let subject = '';
         let loads = '';
 
@@ -38,8 +39,9 @@ async function mailer(info) {
             titulo = info.titulo;
             fecha_congreso = info.fecha_congreso;
             descripcion = info.descripcion;
+            imagen = info.imagen;
             subject = "Confirmación de Inscripsión";
-            loads = ({nombre, apellido, titulo, fecha_congreso, descripcion});
+            loads = ({nombre, apellido, titulo, fecha_congreso, descripcion, imagen});
         }
 
         let options = await transporter.sendMail({
