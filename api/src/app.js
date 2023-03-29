@@ -11,6 +11,7 @@ const server = express();
 server.name = 'BACKEND FORMULARIO SIBEN';
 
 server.use(express.json({limit: '50mb'}));
+server.use(express.urlencoded({limit: '50mb'}));
 server.use(cookieParser());
 server.use(fileUpload());
 server.use(morgan('dev'));
