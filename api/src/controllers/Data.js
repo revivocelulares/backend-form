@@ -82,22 +82,6 @@ const data = {
             console.log(error);
         }
     },
-    getImagen: async (idCongreso) => {
-        try {
-            const connect = await mysql.createConnection({
-                host: DB_HOST,
-                user: DB_USER,
-                password: DB_PASSWORD,
-                database: DB_NAME
-            });
-
-            const [rows, fields] = await connect.execute(`SELECT imagen FROM Congreso WHERE idCongreso=?`, [idCongreso]);
-            await connect.end();
-            return rows[0].imagen;
-        } catch (error) {
-            console.log(error);
-        }
-    }
 }
 
 module.exports = data;

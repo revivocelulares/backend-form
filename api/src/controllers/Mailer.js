@@ -25,7 +25,7 @@ async function mailer(info) {
         let titulo = info.titulo;
         let fecha_congreso = info.fecha_congreso;
         let descripcion = info.descripcion;
-        let imagen = info.imagen;
+        let imagen = '';
         let subject = '';
         let loads = '';
 
@@ -39,7 +39,7 @@ async function mailer(info) {
             titulo = info.titulo;
             fecha_congreso = info.fecha_congreso;
             descripcion = info.descripcion;
-            imagen = info.imagen;
+            imagen = `https://apiform-enbz.onrender.com/api/imagenes/` + info.titulo + `.jpg`;
             subject = "Confirmación de Inscripsión";
             loads = ({nombre, apellido, titulo, fecha_congreso, descripcion, imagen});
         }
