@@ -3,11 +3,11 @@ const { dbconn } = require('../db');
 const congreso = {
     addNewCongreso: async (req, res) => {
         try {
-            let { titulo, descripcion, cupo, fecha_congreso, fecha_inicio, fecha_cierre, costo_usd_medicos_nm, costo_usd_medicos_m } = req.body;
-            const query = "CALL sp_crear_congreso(?,?,?,?,?,?,?,?)";
+            let { titulo, tipo, descripcion, cupo, fecha_congreso, fecha_inicio, fecha_cierre, costo_usd_medicos_nm, costo_usd_medicos_m } = req.body;
+            const query = "CALL sp_crear_congreso(?,?,?,?,?,?,?,?,?)";
 
             const conn = await dbconn();
-            conn.query(query, [titulo, descripcion, cupo, fecha_congreso, fecha_inicio, fecha_cierre, costo_usd_medicos_nm, costo_usd_medicos_m],
+            conn.query(query, [titulo, tipo, descripcion, cupo, fecha_congreso, fecha_inicio, fecha_cierre, costo_usd_medicos_nm, costo_usd_medicos_m],
                 (error, results, fields) => {
                     if(error) {
                         console.error(error.message);
@@ -23,11 +23,11 @@ const congreso = {
     updateCongreso: async (req, res) => {
         try {
             const idCongreso = req.params["idCongreso"];
-            let { titulo, descripcion, cupo, fecha_congreso, fecha_inicio, fecha_cierre, costo_usd_medicos_nm, costo_usd_medicos_m } = req.body;
-            const query = "CALL sp_editar_congreso(?,?,?,?,?,?,?,?,?)";
+            let { titulo, tipo, descripcion, cupo, fecha_congreso, fecha_inicio, fecha_cierre, costo_usd_medicos_nm, costo_usd_medicos_m } = req.body;
+            const query = "CALL sp_editar_congreso(?,?,?,?,?,?,?,?,?,?)";
 
             const conn = await dbconn();
-            conn.query(query, [idCongreso, titulo, descripcion, cupo, fecha_congreso, fecha_inicio, fecha_cierre, costo_usd_medicos_nm, costo_usd_medicos_m],
+            conn.query(query, [idCongreso, titulo, tipo, descripcion, cupo, fecha_congreso, fecha_inicio, fecha_cierre, costo_usd_medicos_nm, costo_usd_medicos_m],
                 (error, results, fields) => {
                     if(error) {
                         console.error(error.message);

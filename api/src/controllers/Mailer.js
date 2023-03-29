@@ -6,22 +6,14 @@ const path = require('path');
 async function mailer(info) {
     try {
         let transporter = nodemailer.createTransport({
-            // host: "smtp.siben.net",
-            // port: 465,
-            // secure: true,
-            // auth: {
-            //     user: "congresos@siben.net",
-            //     pass: "Osaka2020"
-            // },
-            // tls: {
-                
-            //     rejectUnauthorized: false,
-            // }
-            service: 'outlook',
+            host: "smtp.gmail.com",
+            port: 465,
+            secure: true,
             auth: {
-                user: 'rominabocon@hotmail.com',
-                pass: 'Santiagogo11'
-            }
+                user: "congresos@siben.net",
+                pass: "Osaka2020"
+            },
+            
         });
 
         let filePath = '';
@@ -51,7 +43,7 @@ async function mailer(info) {
         }
 
         let options = await transporter.sendMail({
-            from: 'rominabocon@hotmail.com',
+            from: 'congresos@siben.net',
             to: user,
             subject: subject,
             html: template(loads)
