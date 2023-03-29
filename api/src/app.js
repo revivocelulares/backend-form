@@ -2,6 +2,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const corss = require('corss');
+const fileUpload = require('express-fileupload');
 const routes = require('./routes/index.js');
 require('dotenv').config();
 
@@ -9,10 +10,12 @@ const server = express();
 
 server.name = 'BACKEND FORMULARIO SIBEN';
 
-server.use(express.json());
+server.use(express.json({limit: '50mb'}));
 server.use(cookieParser());
+server.use(fileUpload());
 server.use(morgan('dev'));
 server.use(corss());
+server.use('/api/imagenes', express.static(__dirname + '/imagenes'));
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Credentials', 'true');
