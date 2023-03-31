@@ -1,6 +1,6 @@
 const { dbconn } = require('../db');
 const sendMail = require('./Mailer');
-const { getNombre, getApellido, getTitulo, getFechaCongreso, getDescripcion } = require('./Data')
+const { getNombre, getApellido, getTitulo, getFechaCongreso, getDescripcion, getImagen } = require('./Data')
 
 const comprobante = {
     addNewComprobante: async (req, res) => {
@@ -24,6 +24,7 @@ const comprobante = {
                             titulo: await getTitulo(idCongreso),
                             fecha_congreso: await getFechaCongreso(idCongreso),
                             descripcion: await getDescripcion(idCongreso),
+                            imagen: await getImagen(idCongreso)
                         }
                         console.log('INFO --- ' + JSON.stringify(info));
                         await sendMail(info);
