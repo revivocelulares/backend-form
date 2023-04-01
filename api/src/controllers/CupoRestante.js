@@ -25,7 +25,7 @@ const cupoRestante = {
 
             await connect.end();
 
-            if(tipo && tipo != 'congreso') {
+            if(tipo && tipo.toUpperCase() != 'CONGRESO') {
                 const cupos_restantes = parseInt(cupo[0].cupo) - parseInt(Object.values(inscriptos[0][0][0]));
                 console.log('CUPOS_RESTANTES: -------- ' + cupos_restantes);
                 return res.status(200).json(cupos_restantes);
