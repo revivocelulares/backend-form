@@ -20,17 +20,18 @@ async function mailer(info) {
         let source = '';
         let template = '';
         let user = info.email;
-        let nombre = info.nombre;
-        let apellido = info.apellido;
-        let titulo = info.titulo;
-        let fecha_congreso = info.fecha_congreso;
-        let descripcion = info.descripcion;
-        let imagen = 'data:image/jpg;base64,' + info.imagen;
+        let nombre = '';
+        let apellido = '';
+        let titulo = '';
+        let fecha_congreso = '';
+        let descripcion = '';
+        let imagen = '';
+        let newimg = '';
         let subject = '';
         let loads = '';
 
         if(info.confimInscription) {
-            filePath = path.join('confimInscription', '../view/confimInscription.html');
+            filePath = path.join('plantillaMail', '../view/plantillaMail.html');
             source = fs.readFileSync(filePath, 'utf-8').toString();
             template = Handlebars.compile(source);
             user = info.email;
@@ -39,9 +40,10 @@ async function mailer(info) {
             titulo = info.titulo;
             fecha_congreso = info.fecha_congreso;
             descripcion = info.descripcion;
-            imagen = 'data:image/jpg;base64,' + info.imagen;
+            imagen = info.titulo + '.jpg';
+            newimg = imagen.replace(/ /g, "%20");
             subject = "Confirmación de Inscripsión";
-            loads = ({nombre, apellido, titulo, fecha_congreso, descripcion, imagen});
+            loads = ({nombre, apellido, titulo, fecha_congreso, descripcion, newimg});
         }
 
         let options = await transporter.sendMail({
