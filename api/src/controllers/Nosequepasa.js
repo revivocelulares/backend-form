@@ -12,7 +12,23 @@ const mierda = {
                     if(error) {
                         console.error(error.message);
                     }
-                    res.status(200).json(results[0]);
+                    const respuesta = results[0].map(element => {
+                        return {
+                            email: element.email,
+                            nombre: element.nombre,
+                            apellido: element.apellido,
+                            pais: element.pais,
+                            profesion: element.profesion,
+                            isResident: element.isResident,
+                            isMember: element.isMember,
+                            id_pago: element.detalle_pago.map(e => e.id).toString(),
+                            estado_pago: element.detalle_pago.map(e => e.status).toString(),
+                            pagado_usd: element.pagado_usd,
+                            pagado_ars: element.pagado_ars,
+                            metodo_pago: element.detalle_pago.map(e => e.status).toString() === 'approved' ? 'Mercado Pago' : 'PayPal'
+                        }
+                    });
+                    res.status(200).json(respuesta);
                 }
             );
             conn.end();
