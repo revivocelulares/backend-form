@@ -141,7 +141,7 @@ const data = {
 
             const [rows, fields] = await connect.execute(`SELECT detalle FROM respuesta_pago WHERE email=?`, [email]);
             connect.end();
-            const resp = rows[0].map(element => { return { 
+            const resp = rows.map(element => { return { 
                 id_pago: element.detalle.map(e => e.id).toString()
             }});
             return resp;
@@ -160,7 +160,7 @@ const data = {
 
             const [rows, fields] = await connect.execute(`SELECT detalle FROM respuesta_pago WHERE email=?`, [email]);
             connect.end();
-            const resp = rows[0].map(element => { return { 
+            const resp = rows.map(element => { return { 
                 estado_pago: element.detalle.map(e => e.status).toString()
             }});
             return resp;
@@ -179,7 +179,7 @@ const data = {
 
             const [rows, fields] = await connect.execute(`SELECT detalle FROM respuesta_pago WHERE email=?`, [email]);
             connect.end();
-            const resp = rows[0].map(element => { return { 
+            const resp = rows.map(element => { return { 
                 metodo_pago: element.detalle.map(e => e.status).toString() === 'approved' ? 'Mercado Pago' : 'PayPal'
             }});
             return resp;
