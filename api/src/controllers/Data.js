@@ -97,6 +97,92 @@ const data = {
         } catch (error) {
             console.log(error);
         }
+    },
+    getPagadoUSD: async (email) => {
+        try {
+            const connect = await mysql.createConnection({
+                host: DB_HOST,
+                user: DB_USER,
+                password: DB_PASSWORD,
+                database: DB_NAME
+            });
+
+            const [rows, fields] = await connect.execute(`SELECT monto_abonado_usd AS pagado_usd FROM respuesta_pago WHERE email=?`, [email]);
+            connect.end();
+            return rows[0].pagado_usd;
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    getPagadoARS: async (email) => {
+        try {
+            const connect = await mysql.createConnection({
+                host: DB_HOST,
+                user: DB_USER,
+                password: DB_PASSWORD,
+                database: DB_NAME
+            });
+
+            const [rows, fields] = await connect.execute(`SELECT monto_abonado_ars AS pagado_ars FROM respuesta_pago WHERE email=?`, [email]);
+            connect.end();
+            return rows[0].pagado_ars;
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    getIdPago: async (email) => {
+        try {
+            const connect = await mysql.createConnection({
+                host: DB_HOST,
+                user: DB_USER,
+                password: DB_PASSWORD,
+                database: DB_NAME
+            });
+
+            const [rows, fields] = await connect.execute(`SELECT detalle FROM respuesta_pago WHERE email=?`, [email]);
+            connect.end();
+            return rows[0].map(element => { return { 
+                id_pago: element.detalle.map(e => e.id).toString()
+            }});
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    getEstadoPago: async (email) => {
+        try {
+            const connect = await mysql.createConnection({
+                host: DB_HOST,
+                user: DB_USER,
+                password: DB_PASSWORD,
+                database: DB_NAME
+            });
+
+            const [rows, fields] = await connect.execute(`SELECT detalle FROM respuesta_pago WHERE email=?`, [email]);
+            connect.end();
+            return rows[0].map(element => { return { 
+                estado_pago: element.detalle.map(e => e.status).toString()
+            }});
+        } catch (error) {
+            console.log(error);
+        } 
+    },
+    getMetodoPago: async (email) => {
+        try {
+            const connect = await mysql.createConnection({
+                host: DB_HOST,
+                user: DB_USER,
+                password: DB_PASSWORD,
+                database: DB_NAME
+            });
+
+            const [rows, fields] = await connect.execute(`SELECT detalle FROM respuesta_pago WHERE email=?`, [email]);
+            connect.end();
+            return rows[0].map(element => { return { 
+                metodo_pago: element.detalle.map(e => e.status).toString() === 'approved' ? 'Mercado Pago' : 'PayPal'
+            }});
+        } catch (error) {
+            console.log(error);
+        }
     }
 }
 

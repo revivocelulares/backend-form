@@ -1,4 +1,6 @@
 const { dbconn } = require('../db');
+const sendMail = require('./Mailer');
+const { getNombre, getApellido, getPagadoUSD, getPagadoARS, getIdPago, getEstadoPago, getMetodoPago } = require('./Data')
 
 const resp_pago = {
     addNewRespPago: async (req, res) => {
@@ -8,9 +10,25 @@ const resp_pago = {
 
             const conn = await dbconn();
             conn.query(query, [detalle, monto_abonado_usd, monto_abonado_ars, email],
-                (error, results, fields) => {
+                async (error, results, fields) => {
                     if(error) {
                         console.error(error.message);
+                    }
+
+                    if(results.affectedRows === 1) {
+                        let info = {
+                            confirmPago: true,
+                            email: email,
+                            nombre: await getNombre(email),
+                            apellido: await getApellido(email),
+                            pagado_usd: await getPagadoUSD(email),
+                            pagado_ars: await getPagadoARS(email),
+                            id_pago: await getIdPago(email),
+                            estado_pago: await getEstadoPago(email),
+                            metodo_pago: await getMetodoPago(email)
+                        }
+                        console.log('INFO_PAGO --- ' + JSON.stringify(info));
+                        //await sendMail(info);
                     }
                     res.status(200).json(results.affectedRows);
                 }

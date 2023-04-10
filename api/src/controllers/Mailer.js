@@ -25,6 +25,11 @@ async function mailer(info) {
         let titulo = '';
         let fecha_congreso = '';
         let descripcion = '';
+        let id_pago = '';
+        let pagado_usd = '';
+        let pagado_ars = '';
+        let estado_pago = '';
+        let metodo_pago = '';
         let imagen = '';
         let newimg = '';
         let subject = '';
@@ -44,6 +49,22 @@ async function mailer(info) {
             newimg = imagen.replace(/ /g, "%20");
             subject = "Confirmación de Inscripsión";
             loads = ({nombre, apellido, titulo, fecha_congreso, descripcion, newimg});
+        }
+
+        if(info.confirmPago) {
+            filePath = path.join('plantillaMail', '../view/plantillaPago.html');
+            source = fs.readFileSync(filePath, 'utf-8').toString();
+            template = Handlebars.compile(source);
+            user = info.email;
+            nombre = info.nombre;
+            apellido = info.apellido;
+            id_pago = info.id_pago;
+            estado_pago = info.estado_pago;
+            metodo_pago = info.metodo_pago;
+            pagado_usd = info.pagado_usd;
+            pagado_ars = info.pagado_ars;
+            subject = "Confirmación del Pago de la Inscripsión";
+            loads = ({nombre, apellido, id_pago, estado_pago, metodo_pago, pagado_usd, pagado_ars})
         }
 
         let options = await transporter.sendMail({
