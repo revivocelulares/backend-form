@@ -8,7 +8,7 @@ const comprobante = {
 
             const conn = await dbconn();
             conn.query(query, [fecha_inscripcion, idCongreso, email],
-                async (error, results, fields) => {
+                (error, results, fields) => {
                     if(error) {
                         console.error(error.message);
                     }
