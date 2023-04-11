@@ -179,12 +179,14 @@ const data = {
             connect.end();
             let resp = rows[0].detalle;
             const status = resp.map(element => element.status);
+            console.log('ESTADO ------------- ' + status);
             let metodo_pago = '';
-            if(status === 'approved') {
-                metodo_pago = 'Mercado Pago';
-            } else {
+            if(status != 'approved') {
                 metodo_pago = 'PayPal';
+            } else {
+                metodo_pago = 'Mercado Pago';
             }
+            console.log('METODO DE PAGO --------------- ' + metodo_pago);
             return metodo_pago;
         } catch (error) {
             console.log(error);
