@@ -52,7 +52,7 @@ async function mailer(info) {
         }
 
         if(info.confirmPago) {
-            filePath = path.join('plantillaMail', '../view/plantillaPago.html');
+            filePath = path.join('plantillaPago', '../view/plantillaPago.html');
             source = fs.readFileSync(filePath, 'utf-8').toString();
             template = Handlebars.compile(source);
             user = info.email;
