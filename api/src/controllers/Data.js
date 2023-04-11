@@ -133,20 +133,20 @@ const data = {
     },
     getIdPago: async (email) => {
         try {
-            const conn = await dbconn();
-            conn.query('CALL sp_listar_respuesta_pago(?)', [email],
-                (error, results, fields) => {
-                    if(error) {
-                        console.error(error.message);
-                    }
-                    
-                    let resp = results[0].detalle;
-                    console.log('RESP ------------- ' + resp);
-                    const id_pago = resp.map(element => element.id);
-                    return id_pago.toString();
-                }
-            );
-            conn.end();
+            const connect = await mysql.createConnection({
+                host: DB_HOST,
+                user: DB_USER,
+                password: DB_PASSWORD,
+                database: DB_NAME
+            });
+
+            const [rows, fields] = await connect.execute(`SELECT detalle FROM respuesta_pago WHERE email=?`, [email]);
+            connect.end();
+            console.log('RESPUESTA -------------- ' + rows[0].detalle);
+            let resp = rows[0].detalle;
+            const id_pago = resp.map(element => element.id);
+            console.log('ID_PAGO -------------- ' + id_pago);
+            return id_pago.toString();
         } catch (error) {
             console.log(error);
         }
