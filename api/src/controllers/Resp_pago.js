@@ -28,7 +28,7 @@ const resp_pago = {
                             metodo_pago: await getMetodoPago(email)
                         }
                         console.log('INFO_PAGO --- ' + JSON.stringify(info));
-                        //await sendMail(info);
+                        await sendMail(info);
                     }
                     res.status(200).json(results.affectedRows);
                 }
