@@ -178,16 +178,16 @@ const data = {
             const [rows, fields] = await connect.execute(`SELECT detalle FROM respuesta_pago WHERE email=?`, [email]);
             connect.end();
             let resp = rows[0].detalle;
-            const status = resp.map(element => element.status);
+            let status = resp.map(element => element.status).toString();
             console.log('ESTADO ------------- ' + status);
             let metodo_pago = '';
-            if(status != 'approved') {
-                metodo_pago = 'PayPal';
-            } else {
+            if(status === 'approved') {
                 metodo_pago = 'Mercado Pago';
+            } else {
+                metodo_pago = 'PayPal';
             }
             console.log('METODO DE PAGO --------------- ' + metodo_pago);
-            return metodo_pago;
+            return metodo_pago.toString();
         } catch (error) {
             console.log(error);
         }
