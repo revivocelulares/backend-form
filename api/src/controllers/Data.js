@@ -180,7 +180,13 @@ const data = {
             connect.end();
             let resp = rows[0].detalle;
             const status = resp.map(element => element.status);
-            const metodo_pago = status === 'approved' ? 'Mercado Pago' : 'PayPal';
+            console.log('ESTADO ------------ ' + status);
+            //const metodo_pago = status === 'approved' ? 'Mercado Pago' : 'PayPal';
+            if(status === 'approved') {
+                metodo_pago = 'Mercado Pago';
+            } else {
+                metodo_pago = 'PayPal';
+            }
             return metodo_pago.toString();
         } catch (error) {
             console.log(error);
