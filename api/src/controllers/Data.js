@@ -142,7 +142,7 @@ const data = {
             const [rows, fields] = await connect.execute(`SELECT detalle FROM respuesta_pago WHERE email=?`, [email]);
             connect.end();
             const resp = rows.map(element => { return { 
-                id_pago: element.detalle.map(e => e.id).toString()
+                id_pago: element.id.toString()
             }});
             return resp;
         } catch (error) {
