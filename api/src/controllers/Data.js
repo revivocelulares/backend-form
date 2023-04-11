@@ -142,10 +142,8 @@ const data = {
 
             const [rows, fields] = await connect.execute(`SELECT detalle FROM respuesta_pago WHERE email=?`, [email]);
             connect.end();
-            console.log('RESPUESTA -------------- ' + rows[0].detalle);
             let resp = rows[0].detalle;
             const id_pago = resp.map(element => element.id);
-            console.log('ID_PAGO -------------- ' + id_pago);
             return id_pago.toString();
         } catch (error) {
             console.log(error);
@@ -153,46 +151,37 @@ const data = {
     },
     getEstadoPago: async (email) => {
         try {
-            const conn = await dbconn();
-            conn.query(`CALL sp_listar_respuesta_pago(?)`, [email],
-                async (error, results, fields) => {
-                    if(error) {
-                        console.error(error.message);
-                    }
-                    
-                    const resp = results[0].map(element => {
-                        return {
-                            estado_pago: element.detalle.map(e => e.status).toString()
-                            
-                        }
-                    });
-                    return resp;
-                }
-            )
-            conn.end();
+            const connect = await mysql.createConnection({
+                host: DB_HOST,
+                user: DB_USER,
+                password: DB_PASSWORD,
+                database: DB_NAME
+            });
+
+            const [rows, fields] = await connect.execute(`SELECT detalle FROM respuesta_pago WHERE email=?`, [email]);
+            connect.end();
+            let resp = rows[0].detalle;
+            const estado_pago = resp.map(element => element.status);
+            return estado_pago.toString();
         } catch (error) {
             console.log(error);
         } 
     },
     getMetodoPago: async (email) => {
         try {
-            const conn = await dbconn();
-            conn.query(`CALL sp_listar_respuesta_pago(?)`, [email],
-                async (error, results, fields) => {
-                    if(error) {
-                        console.error(error.message);
-                    }
-                    
-                    const resp = results[0].map(element => {
-                        return {
-                            metodo_pago: element.detalle.map(e => e.status).toString() === 'approved' ? 'Mercado Pago' : 'PayPal'
-                            
-                        }
-                    });
-                    return resp;
-                }
-            )
-            conn.end();
+            const connect = await mysql.createConnection({
+                host: DB_HOST,
+                user: DB_USER,
+                password: DB_PASSWORD,
+                database: DB_NAME
+            });
+
+            const [rows, fields] = await connect.execute(`SELECT detalle FROM respuesta_pago WHERE email=?`, [email]);
+            connect.end();
+            let resp = rows[0].detalle;
+            const status = resp.map(element => element.status);
+            const metodo_pago = status === 'approved' ? 'Mercado Pago' : 'PayPal';
+            return metodo_pago.toString();
         } catch (error) {
             console.log(error);
         }
