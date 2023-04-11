@@ -1,5 +1,4 @@
 const mysql = require('mysql2/promise');
-const { dbconn } = require('../db');
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME}  = process.env;
 
 const data = {
@@ -162,7 +161,7 @@ const data = {
             connect.end();
             let resp = rows[0].detalle;
             const estado_pago = resp.map(element => element.status);
-            return estado_pago;
+            return estado_pago.toString();
         } catch (error) {
             console.log(error);
         } 
@@ -180,7 +179,7 @@ const data = {
             connect.end();
             let resp = rows[0].detalle;
             const status = resp.map(element => element.status);
-            const metodo_pago = '';
+            let metodo_pago = '';
             if(status === 'approved') {
                 metodo_pago = 'Mercado Pago';
             } else {
