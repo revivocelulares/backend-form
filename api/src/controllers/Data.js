@@ -1,4 +1,5 @@
 const mysql = require('mysql2/promise');
+const { dbconn } = require('../db');
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME}  = process.env;
 
 const data = {
@@ -132,57 +133,69 @@ const data = {
     },
     getIdPago: async (email) => {
         try {
-            const connect = await mysql.createConnection({
-                host: DB_HOST,
-                user: DB_USER,
-                password: DB_PASSWORD,
-                database: DB_NAME
-            });
-
-            const [rows, fields] = await connect.execute(`CALL sp_listar_respuesta_pago(?)`, [email]);
-            connect.end();
-            const resp = rows.map(element => { return { 
-                id_pago: element.detalle.map(e => e.id).toString()
-            }});
-            return resp;
+            const conn = await dbconn();
+            conn.query(`CALL sp_listar_respuesta_pago(?)`, [email],
+                async (error, results, fields) => {
+                    if(error) {
+                        console.error(error.message);
+                    }
+                    
+                    const resp = results[0].map(element => {
+                        return {
+                            id_pago: element.detalle.map(e => e.id).toString()
+                            
+                        }
+                    });
+                    return resp;
+                }
+            )
+            conn.end();
         } catch (error) {
             console.log(error);
         }
     },
     getEstadoPago: async (email) => {
         try {
-            const connect = await mysql.createConnection({
-                host: DB_HOST,
-                user: DB_USER,
-                password: DB_PASSWORD,
-                database: DB_NAME
-            });
-
-            const [rows, fields] = await connect.execute(`CALL sp_listar_respuesta_pago(?)`, [email]);
-            connect.end();
-            const resp = rows.map(element => { return { 
-                estado_pago: element.detalle.map(e => e.status).toString()
-            }});
-            return resp;
+            const conn = await dbconn();
+            conn.query(`CALL sp_listar_respuesta_pago(?)`, [email],
+                async (error, results, fields) => {
+                    if(error) {
+                        console.error(error.message);
+                    }
+                    
+                    const resp = results[0].map(element => {
+                        return {
+                            estado_pago: element.detalle.map(e => e.status).toString()
+                            
+                        }
+                    });
+                    return resp;
+                }
+            )
+            conn.end();
         } catch (error) {
             console.log(error);
         } 
     },
     getMetodoPago: async (email) => {
         try {
-            const connect = await mysql.createConnection({
-                host: DB_HOST,
-                user: DB_USER,
-                password: DB_PASSWORD,
-                database: DB_NAME
-            });
-
-            const [rows, fields] = await connect.execute(`CALL sp_listar_respuesta_pago(?)`, [email]);
-            connect.end();
-            const resp = rows.map(element => { return { 
-                metodo_pago: element.detalle.map(e => e.status).toString() === 'approved' ? 'Mercado Pago' : 'PayPal'
-            }});
-            return resp;
+            const conn = await dbconn();
+            conn.query(`CALL sp_listar_respuesta_pago(?)`, [email],
+                async (error, results, fields) => {
+                    if(error) {
+                        console.error(error.message);
+                    }
+                    
+                    const resp = results[0].map(element => {
+                        return {
+                            metodo_pago: element.detalle.map(e => e.status).toString() === 'approved' ? 'Mercado Pago' : 'PayPal'
+                            
+                        }
+                    });
+                    return resp;
+                }
+            )
+            conn.end();
         } catch (error) {
             console.log(error);
         }
