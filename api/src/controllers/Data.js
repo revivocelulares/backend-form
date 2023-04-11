@@ -139,10 +139,10 @@ const data = {
                 database: DB_NAME
             });
 
-            const [rows, fields] = await connect.execute(`SELECT detalle FROM respuesta_pago WHERE email=?`, [email]);
+            const [rows, fields] = await connect.execute(`CALL sp_listar_respuesta_pago(?)`, [email]);
             connect.end();
             const resp = rows.map(element => { return { 
-                id_pago: (element.id).toString()
+                id_pago: element.detalle.map(e => e.id).toString()
             }});
             return resp;
         } catch (error) {
@@ -158,10 +158,10 @@ const data = {
                 database: DB_NAME
             });
 
-            const [rows, fields] = await connect.execute(`SELECT detalle FROM respuesta_pago WHERE email=?`, [email]);
+            const [rows, fields] = await connect.execute(`CALL sp_listar_respuesta_pago(?)`, [email]);
             connect.end();
             const resp = rows.map(element => { return { 
-                estado_pago: (element.status).toString()
+                estado_pago: element.detalle.map(e => e.status).toString()
             }});
             return resp;
         } catch (error) {
@@ -177,10 +177,10 @@ const data = {
                 database: DB_NAME
             });
 
-            const [rows, fields] = await connect.execute(`SELECT detalle FROM respuesta_pago WHERE email=?`, [email]);
+            const [rows, fields] = await connect.execute(`CALL sp_listar_respuesta_pago(?)`, [email]);
             connect.end();
             const resp = rows.map(element => { return { 
-                metodo_pago: (element.status).toString() === 'approved' ? 'Mercado Pago' : 'PayPal'
+                metodo_pago: element.detalle.map(e => e.status).toString() === 'approved' ? 'Mercado Pago' : 'PayPal'
             }});
             return resp;
         } catch (error) {
