@@ -140,7 +140,10 @@ const data = {
                         console.error(error.message);
                     }
                     
-                    return results[0].detalle.map(element => element.id);
+                    let resp = results[0].detalle;
+                    console.log('RESP ------------- ' + resp);
+                    const id_pago = resp.map(element => element.id);
+                    return id_pago.toString();
                 }
             );
             conn.end();
