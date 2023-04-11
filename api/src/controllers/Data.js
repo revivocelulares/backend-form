@@ -134,8 +134,8 @@ const data = {
     getIdPago: async (email) => {
         try {
             const conn = await dbconn();
-            conn.query(`CALL sp_listar_respuesta_pago(?)`, [email],
-                async (error, results, fields) => {
+            conn.query('CALL sp_listar_respuesta_pago(?)', [email],
+                (error, results, fields) => {
                     if(error) {
                         console.error(error.message);
                     }
