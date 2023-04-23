@@ -4,13 +4,43 @@ let fs = require('fs');
 const congreso = {
     addNewCongreso: async (req, res) => {
         try {
-            let { titulo, tipo, descripcion, cupo, imagen, fecha_congreso, fecha_inicio, fecha_cierre, costo_usd_medicos_nm, costo_usd_medicos_m } = req.body;
+            let { titulo, 
+                  tipo, 
+                  descripcion, 
+                  cupo, 
+                  imagen, 
+                  fecha_congreso, 
+                  fecha_inicio, 
+                  fecha_cierre, 
+                  costo_usd_medicos_nm, 
+                  costo_usd_medicos_m,
+                  costo_usd_nomedicos_nm,
+                  costo_usd_nomedicos_m,
+                  costo_ars_medicos_m,
+                  costo_ars_medicos_nm,
+                  costo_ars_nomedicos_m,
+                  costo_ars_nomedicos_nm } = req.body;
             let buff = fs.readFileSync(`./src/imagenes/${titulo}.jpg`);
             imagen = buff.toString('base64');
-            const query = "CALL sp_crear_congreso(?,?,?,?,?,?,?,?,?,?)";
+            const query = "CALL sp_crear_congreso(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
             const conn = await dbconn();
-            conn.query(query, [titulo, tipo, descripcion, cupo, imagen, fecha_congreso, fecha_inicio, fecha_cierre, costo_usd_medicos_nm, costo_usd_medicos_m],
+            conn.query(query, [titulo, 
+                               tipo, 
+                               descripcion, 
+                               cupo, 
+                               imagen, 
+                               fecha_congreso, 
+                               fecha_inicio, 
+                               fecha_cierre, 
+                               costo_usd_medicos_nm, 
+                               costo_usd_medicos_m,
+                               costo_usd_nomedicos_nm,
+                               costo_usd_nomedicos_m,
+                               costo_ars_medicos_m,
+                               costo_ars_medicos_nm,
+                               costo_ars_nomedicos_m,
+                               costo_ars_nomedicos_nm],
                 (error, results, fields) => {
                     if(error) {
                         console.error(error.message);
@@ -26,11 +56,42 @@ const congreso = {
     updateCongreso: async (req, res) => {
         try {
             const idCongreso = req.params["idCongreso"];
-            let { titulo, tipo, descripcion, cupo, imagen, fecha_congreso, fecha_inicio, fecha_cierre, costo_usd_medicos_nm, costo_usd_medicos_m } = req.body;
-            const query = "CALL sp_editar_congreso(?,?,?,?,?,?,?,?,?,?,?)";
+            let { titulo, 
+                  tipo, 
+                  descripcion, 
+                  cupo, 
+                  imagen, 
+                  fecha_congreso, 
+                  fecha_inicio, 
+                  fecha_cierre, 
+                  costo_usd_medicos_nm, 
+                  costo_usd_medicos_m,
+                  costo_usd_nomedicos_nm,
+                  costo_usd_nomedicos_m,
+                  costo_ars_medicos_m,
+                  costo_ars_medicos_nm,
+                  costo_ars_nomedicos_m,
+                  costo_ars_nomedicos_nm } = req.body;
+            const query = "CALL sp_editar_congreso(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
             const conn = await dbconn();
-            conn.query(query, [idCongreso, titulo, tipo, descripcion, cupo, imagen, fecha_congreso, fecha_inicio, fecha_cierre, costo_usd_medicos_nm, costo_usd_medicos_m],
+            conn.query(query, [idCongreso, 
+                               titulo, 
+                               tipo, 
+                               descripcion, 
+                               cupo, 
+                               imagen, 
+                               fecha_congreso, 
+                               fecha_inicio, 
+                               fecha_cierre, 
+                               costo_usd_medicos_nm, 
+                               costo_usd_medicos_m,
+                               costo_usd_nomedicos_nm,
+                               costo_usd_nomedicos_m,
+                               costo_ars_medicos_m,
+                               costo_ars_medicos_nm,
+                               costo_ars_nomedicos_m,
+                               costo_ars_nomedicos_nm],
                 (error, results, fields) => {
                     if(error) {
                         console.error(error.message);
@@ -54,6 +115,25 @@ const congreso = {
                 }
                 res.status(200).json(results[0]);
             });
+            conn.end();
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    eliminarCongreso: async (req, res) => {
+        try {
+            const idCongreso = req.params["idCongreso"];
+            const query = 'CALL sp_eliminar_congreso(?)';
+
+            const conn = await dbconn();
+            conn.query(query, [idCongreso],
+                (error, results, fields) => {
+                    if(error) {
+                        console.error(error.message);
+                    }
+                    res.status(200).json(results.affectedRows);
+                }
+            );
             conn.end();
         } catch (error) {
             console.log(error);
