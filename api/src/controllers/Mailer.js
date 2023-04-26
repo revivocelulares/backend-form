@@ -52,7 +52,11 @@ async function mailer(info) {
         }
 
         if(info.confirmPago) {
-            filePath = path.join('plantillaPago', '../view/plantillaPago.html');
+            if(info.metodo_pago && info.metodo_pago === 'PayPal') {
+                filePath = path.join('plantillaPago', '../view/plantillaPago.html');
+            } else {
+                filePath = path.join('plantillaPago', '../view/plantillaPagoMP.html');
+            }
             source = fs.readFileSync(filePath, 'utf-8').toString();
             template = Handlebars.compile(source);
             user = info.email;
