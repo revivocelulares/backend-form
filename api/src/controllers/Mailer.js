@@ -47,7 +47,7 @@ async function mailer(info) {
             descripcion = info.descripcion;
             imagen = info.titulo + '.jpg';
             newimg = imagen.replace(/ /g, "%20");
-            subject = "Confirmación de Inscripsión";
+            subject = "Confirmación de Inscripción";
             loads = ({nombre, apellido, titulo, fecha_congreso, descripcion, newimg});
         }
 
@@ -67,7 +67,7 @@ async function mailer(info) {
             metodo_pago = info.metodo_pago;
             pagado_usd = info.pagado_usd;
             pagado_ars = info.pagado_ars;
-            subject = "Confirmación del Pago de la Inscripsión";
+            subject = "Confirmación del Pago de la Inscripción";
             loads = ({nombre, apellido, id_pago, estado_pago, metodo_pago, pagado_usd, pagado_ars})
         }
 
