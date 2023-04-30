@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const payment = {
     paymentmethod: (req, res) => {
-        mercadopago.configure(process.env.ACCESS_TOKEN_MP);
+        mercadopago.configure({ access_token: process.env.ACCESS_TOKEN_MP});
         let preference = {
             items: [
                 {
