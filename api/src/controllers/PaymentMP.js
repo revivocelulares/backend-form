@@ -13,9 +13,9 @@ const payment = {
                 }
             ],
             back_urls: {
-                "success": "http://localhost:3001/feedback",
-                "failure": "http://localhost:3001/feedback",
-                "pending": "http://localhost:3001/feedback"
+                "success": "http://localhost:3001/api/create_preference/feedback",
+                "failure": "http://localhost:3001/api/create_preference/feedback",
+                "pending": "http://localhost:3001/api/create_preference/feedback"
             },
             auto_return: "approved"
         };
