@@ -13,13 +13,13 @@ const payment = {
                 }
             ],
             back_urls: {
-                "success": "http://localhost:3001/api/create_preference/feedback",
+                "success": "http://localhost:5173/thankyoupagemp",
                 "failure": "http://localhost:3001/api/create_preference/feedback",
                 "pending": "http://localhost:3001/api/create_preference/feedback"
             },
             auto_return: "approved"
         };
-        
+        console.log('-------------------- ' + JSON.stringify(preference));
         mercadopago.preferences
         .create(preference)
         .then(function (response) {
