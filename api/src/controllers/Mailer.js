@@ -55,7 +55,9 @@ async function mailer(info) {
             if(info.metodo_pago && info.metodo_pago === 'PayPal') {
                 filePath = path.join('plantillaPago', '../view/plantillaPago.html');
             } else {
-                filePath = path.join('plantillaPago', '../view/plantillaPagoMP.html');
+                if(info.estado_pago === 'approved') filePath = path.join('plantillaPago', '../view/plantillaPagoMP.html');
+                if(info.estado_pago === 'in_process') filePath = path.join('plantillaPago', '../view/MP-in_process.html');
+                if(info.estado_pago === 'rejected') filePath = path.join('plantillaPago', '../view/MP-rejected.html');                
             }
             source = fs.readFileSync(filePath, 'utf-8').toString();
             template = Handlebars.compile(source);
@@ -67,7 +69,7 @@ async function mailer(info) {
             metodo_pago = info.metodo_pago;
             pagado_usd = info.pagado_usd;
             pagado_ars = info.pagado_ars;
-            subject = "Confirmación del Pago de la Inscripción";
+            subject = "Información del Pago de la Inscripción";
             loads = ({nombre, apellido, id_pago, estado_pago, metodo_pago, pagado_usd, pagado_ars})
         }
 
