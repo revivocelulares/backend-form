@@ -5,6 +5,7 @@ const payment = {
     paymentmethod: (req, res) => {
         mercadopago.configure({ access_token: process.env.ACCESS_TOKEN_MP});
         let preference = {
+            binary_mode: true,
             items: [
                 {
                     title: req.body.description,
