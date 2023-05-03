@@ -13,9 +13,9 @@ const payment = {
                 }
             ],
             back_urls: {
-                "success": "http://localhost:5173/thankyoupagemp",
-                "failure": "http://localhost:5173/thankyoupagemp",
-                "pending": "http://localhost:5173/thankyoupagemp"
+                "success": "https://formulario-siben.vercel.app/thankyoupagemp",
+                "failure": "https://formulario-siben.vercel.app/thankyoupagemp",
+                "pending": "https://formulario-siben.vercel.app/thankyoupagemp"
             },
             auto_return: "approved"
         };
