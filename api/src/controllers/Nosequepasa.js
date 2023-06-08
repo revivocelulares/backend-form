@@ -21,6 +21,7 @@ const mierda = {
                             profesion: element.profesion,
                             isResident: element.isResident,
                             isMember: element.isMember,
+                            fecha_inscripcion: element.fecha_inscripcion,
                             id_pago: element.detalle_pago.map(e => e.status).toString() === 'approved' 
                                         ? element.detalle_pago.map(e => e.payment_id).toString()
                                         : element.detalle_pago.map(e => e.id).toString(),
