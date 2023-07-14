@@ -142,7 +142,7 @@ const data = {
             const [rows, fields] = await connect.execute(`SELECT detalle FROM respuesta_pago WHERE email=?`, [email]);
             connect.end();
             let resp = rows[0].detalle;
-            const id_pago = resp.map(element => element.id);
+            const id_pago = resp.map(element => element.payment_id);
             return id_pago.toString();
         } catch (error) {
             console.log(error);
@@ -180,7 +180,7 @@ const data = {
             let resp = rows[0].detalle;
             let status = resp.map(element => element.status).toString();
             let metodo_pago = '';
-            if(status === 'approved') {
+            if(status === 'approved' || status === 'rejected' || status === 'in_process') {
                 metodo_pago = 'Mercado Pago';
             } else {
                 metodo_pago = 'PayPal';

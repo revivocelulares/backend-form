@@ -15,7 +15,7 @@ const inscripto = {
                 });
                 const [rows, fields] = await connect.execute(`SELECT * FROM users WHERE email=? AND group_id=3 AND active=1`, [email]);
                 const verify_email = rows.length > 0 ? rows[0]?.email : null;
-                console.log('VERIFY_EMAIL: ' + verify_email);
+                //console.log('VERIFY_EMAIL: ' + verify_email);
                 if(verify_email === email) {
                     isMember = 1;
                 } else {
@@ -25,7 +25,7 @@ const inscripto = {
             const query = "CALL sp_crear_inscripto(?,?,?,?,?,?,?)";
 
             const conn = await dbconn();
-            console.log('isMember ---------------- ' + isMember);
+            //console.log('isMember ---------------- ' + isMember);
             conn.query(query, [email, nombre, apellido, pais, profesion, isResident, isMember],
                 (error, results, fields) => {
                     if(error) {

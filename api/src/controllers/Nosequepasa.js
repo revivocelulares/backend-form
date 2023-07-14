@@ -21,7 +21,10 @@ const mierda = {
                             profesion: element.profesion,
                             isResident: element.isResident,
                             isMember: element.isMember,
-                            id_pago: element.detalle_pago.map(e => e.id).toString(),
+                            fecha_inscripcion: element.fecha_inscripcion,
+                            id_pago: element.detalle_pago.map(e => e.status).toString() === 'approved' 
+                                        ? element.detalle_pago.map(e => e.payment_id).toString()
+                                        : element.detalle_pago.map(e => e.id).toString(),
                             estado_pago: element.detalle_pago.map(e => e.status).toString(),
                             pagado_usd: element.pagado_usd,
                             pagado_ars: element.pagado_ars,

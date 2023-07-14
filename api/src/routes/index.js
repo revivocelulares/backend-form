@@ -9,7 +9,7 @@ const mailsSiben = require('./mailsSiben');
 const buscar = require('./mierda');
 const cupo_restante = require('./cupo_restante');
 
-router.use('/process-payment', payment);
+router.use('/create_preference', payment);
 router.use('/congreso', congreso);
 router.use('/inscripto', inscripto);
 router.use('/comprobante', comprobante);

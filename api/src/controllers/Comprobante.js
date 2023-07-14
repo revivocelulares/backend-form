@@ -25,7 +25,7 @@ const comprobante = {
                             fecha_congreso: await getFechaCongreso(idCongreso),
                             descripcion: await getDescripcion(idCongreso),
                         }
-                        console.log('INFO --- ' + JSON.stringify(info));
+                        //console.log('INFO --- ' + JSON.stringify(info));
                         await sendMail(info);
                     }
                     res.status(200).json(results.affectedRows);
