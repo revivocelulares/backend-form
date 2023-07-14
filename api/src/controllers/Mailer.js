@@ -79,7 +79,7 @@ async function mailer(info) {
             subject: subject,
             html: template(loads)
         });
-        console.log('SERA QUE SI ------------------- ' + options.messageId);
+        //console.log('SERA QUE SI ------------------- ' + options.messageId);
         return options.messageId;
 
     } catch (error) {
