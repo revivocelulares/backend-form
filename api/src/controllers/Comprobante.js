@@ -15,7 +15,7 @@ const comprobante = {
                         console.error(error.message);
                     }
 
-                    //if(results.affectedRows === 1) {
+                    if(results.affectedRows === 1) {
                         let info = {
                             confimInscription: true,
                             email: email,
@@ -27,7 +27,7 @@ const comprobante = {
                         }
                         //console.log('INFO --- ' + JSON.stringify(info));
                         await sendMail(info);
-                    //}
+                    }
                     res.status(200).json(results.affectedRows);
                 }
             );

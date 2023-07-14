@@ -15,7 +15,7 @@ const resp_pago = {
                         console.error(error.message);
                     }
 
-                    //if(results.affectedRows === 1) {
+                    if(results.affectedRows === 1) {
                         let info = {
                             confirmPago: true,
                             email: email,
@@ -29,7 +29,7 @@ const resp_pago = {
                         }
                         //console.log('INFO_PAGO --- ' + JSON.stringify(info));
                         await sendMail(info);
-                    //}
+                    }
                     res.status(200).json(results.affectedRows);
                 }
             );
