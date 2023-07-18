@@ -20,7 +20,7 @@ const payment = {
             },
             auto_return: "approved"
         };
-        console.log('-------------------- ' + JSON.stringify(preference));
+        //console.log('-------------------- ' + JSON.stringify(preference));
         mercadopago.preferences
         .create(preference)
         .then(function (response) {
