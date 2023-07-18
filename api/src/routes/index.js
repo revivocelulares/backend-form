@@ -8,6 +8,7 @@ const dolar = require('./dolar');
 const mailsSiben = require('./mailsSiben');
 const buscar = require('./mierda');
 const cupo_restante = require('./cupo_restante');
+const finalisima = require('./finalProcess');
 
 router.use('/create_preference', payment);
 router.use('/congreso', congreso);
@@ -18,5 +19,6 @@ router.use('/dolar', dolar);
 router.use('/mailsSiben', mailsSiben);
 router.use('/buscarInscripto', buscar);
 router.use('/cupo_restante', cupo_restante);
+router.use('/final', finalisima);
 
 module.exports = router;

@@ -9,7 +9,7 @@ const resp_pago = {
             const query = "CALL sp_crear_respuesta_pago(?,?,?,?)";
 
             const conn = await dbconn();
-            conn.query(query, [detalle, monto_abonado_usd, monto_abonado_ars, email],
+            conn.query(query, [JSON.stringify(detalle), monto_abonado_usd, monto_abonado_ars, email],
                 async (error, results, fields) => {
                     if(error) {
                         console.error(error.message);
